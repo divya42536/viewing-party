@@ -11,7 +11,8 @@ We both need Laptop ,  Liveshare , Zoom , Fixed for coworking 11:30am to 1pm and
 ## Collaboration vs. Individual Work Expectations
 *Clarify your collaboration expectations - does your group want to write code together all of the time? Or divide work to do independently, then come together to share accomplishments? What tools and technologies can help your collaboration?*
 
-
+We plan to start by pair-programming to align on style and workflow, then later try splitting tasks—for example in Waves 3–4—to practice working independently and sharing results.
+To stay connected we’ll use VS Code Live Share for real-time coding, Git/GitHub for version control, Slack and Zoom for communication, and tools like ChatGPT and Google for quick research.
 
 ## Learning Style
 *How does each team member learn best in project settings?*
