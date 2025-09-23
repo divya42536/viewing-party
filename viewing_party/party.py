@@ -95,7 +95,90 @@ def watch_movie(user_data, title):
 
 
 # ------------- WAVE 2 --------------------
-# -----------------------------------------
+def get_watched_avg_rating(user_data):
+    
+    """
+    Calculate the average rating of the movies in the user's watched list.
+
+    Args:
+        user_data (dict): A dictionary containing user information.
+            Expected to have a key "watched", whose value is a list of 
+            movie dictionaries. Each movie dictionary must contain a 
+            "rating" key with a numeric value.
+
+    Returns:
+        float: The average rating of all movies in the "watched" list.
+               Returns 0.0 if the list is empty.
+    
+    Example:
+        user_data = {
+            "watched": [
+                {"title": "Movie A", "genre": "Horror", "rating": 3.5},
+                {"title": "Movie B", "genre": "Comedy", "rating": 4.0}
+            ]
+        }
+        get_watched_avg_rating(user_data)  # Returns 3.75
+    """
+
+
+    num_of_movies = len(user_data["watched"])
+    rating_avg = 0
+    rating_total = 0
+    if not user_data["watched"]:
+        return 0.0
+    for movie in user_data["watched"]:
+        rating_total += movie["rating"]
+    rating_avg = rating_total / num_of_movies
+    return rating_avg
+
+def get_most_watched_genre(user_data):
+    """
+    Determine the most frequently watched genre for a user.
+
+    Args:
+        user_data (dict): A dictionary containing user information.
+            Expected to have a key "watched", whose value is a list of 
+            movie dictionaries. Each movie dictionary must contain 
+            a "genre" key with a string value.
+
+    Returns:
+        str: The genre that appears most frequently in the "watched" list.
+        None: If the "watched" list is empty.
+    
+    Example:
+        user_data = {
+            "watched": [
+                {"title": "Movie A", "genre": "Horror", "rating": 3.5},
+                {"title": "Movie B", "genre": "Comedy", "rating": 4.0},
+                {"title": "Movie C", "genre": "Horror", "rating": 4.2}
+            ]
+        }
+        get_most_watched_genre(user_data)  # Returns "Horror"
+    """
+
+
+    frequently_watched_genre = {}
+
+    max_num = 0
+    most_watched_genre = ""
+
+    if not user_data["watched"]:
+        return None
+    for movie in user_data["watched"]:
+        genre = movie["genre"]
+        if genre in frequently_watched_genre:
+            frequently_watched_genre[genre] += 1
+        else:
+            frequently_watched_genre[genre] = 1
+    for genre , count in frequently_watched_genre.items():
+        if count > max_num:
+            max_num = count
+            most_watched_genre = genre
+    return most_watched_genre
+
+
+
+
 
 
 # -----------------------------------------
