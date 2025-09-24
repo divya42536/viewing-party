@@ -243,16 +243,14 @@ def get_available_recs(user_data):
     """
     
     recommended_movies = []
-    recommended_titles = []
-   
+    
     for movie in user_data["watched"]:
         for friend in user_data["friends"]:
             for movie in friend["watched"]:
                 if movie not in user_data["watched"] and movie["host"] in user_data["subscriptions"]:
-                    if movie["title"] not in recommended_titles:
+                    if movie not in recommended_movies:
                         recommended_movies.append(movie)
-                        recommended_titles.append(movie["title"])
-                    
+                        
     return recommended_movies
 
 # -----------------------------------------
