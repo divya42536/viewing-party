@@ -79,16 +79,12 @@ def watch_movie(user_data, title):
     Output:
         user_data
     """
-    
     for movie in user_data["watchlist"]:
         if title in movie.values():
             user_data["watchlist"].remove(movie)
             user_data["watched"].append(movie) 
             return user_data
-
     return user_data
-# -----------------------------------------
-
 
 # ------------- WAVE 2 --------------------
 def get_watched_avg_rating(user_data):
@@ -115,8 +111,6 @@ def get_watched_avg_rating(user_data):
         }
         get_watched_avg_rating(user_data)  # Returns 3.75
     """
-
-
     num_of_movies = len(user_data["watched"])
     rating_avg = 0
     rating_total = 0
@@ -152,12 +146,9 @@ def get_most_watched_genre(user_data):
         get_most_watched_genre(user_data)  # Returns "Horror"
     """
 
-
     frequently_watched_genre = {}
-
     max_num = 0
     most_watched_genre = ""
-
     if not user_data["watched"]:
         return None
     for movie in user_data["watched"]:
@@ -171,7 +162,6 @@ def get_most_watched_genre(user_data):
             max_num = count
             most_watched_genre = genre
     return most_watched_genre
-# -----------------------------------------
 
 
 # ------------- WAVE 3 --------------------
@@ -233,14 +223,56 @@ def get_friends_unique_watched(user_data):
                 only_friends_watched.append(friend_movie)
 
     return only_friends_watched
-# -----------------------------------------
 
-
-# -----------------------------------------
 # ------------- WAVE 4 --------------------
-# -----------------------------------------
+def get_available_recs(user_data):
+
+    """
+    Create a list of recommended movies for a user based on their subscriptions and friends' watched movies.
+
+    Parameters:
+        user_data (dict): 
+            A dictionary containing:
+            - "watched": list of movies the user has already watched
+            - "friends": list of friends, each with their own "watched" list
+            - "subscriptions": list of streaming services the user is subscribed to
+
+    Returns:
+        list: Movies that the user hasn't watched, that at least one friend has watched,
+              and are hosted on a service in the user's subscriptions.
+    """
+    
+    recommended_movies = []
+    recommended_titles = []
+   
+    for movie in user_data["watched"]:
+        for friend in user_data["friends"]:
+            for movie in friend["watched"]:
+                if movie not in user_data["watched"] and movie["host"] in user_data["subscriptions"]:
+                    if movie["title"] not in recommended_titles:
+                        recommended_movies.append(movie)
+                        recommended_titles.append(movie["title"])
+                    
+    return recommended_movies
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
 # -----------------------------------------
+# 1. Create a function named  `get_new_rec_by_genre`. This function should...
+def get_new_rec_by_gen(user_data):
+# - take one parameter: `user_data`
+# - Consider the user's most frequently watched genre. Then, determine a list of recommended movies. A movie should be added to this list if and only if:
+#   - The user has not watched it
+#   - At least one of the user's friends has watched
+#   - The `"genre"` of the movie is the same as the user's most frequent genre
+# - Return the list of recommended movies
+
+    most_watched_genre = get_most_watched_genre(user_data)
+    recommended_movies = []
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            if movie not in user_data["watched"] and movie["genre"] == most_watched_genre:
+                recommended_movies.append("genre")
+    return recommended_movies
+
 
